@@ -1,0 +1,117 @@
+{% extends bill_base %}
+{% load static %}
+
+
+{% block title %} Sale Bill No : {{ bill.billno }}{% endblock title %}
+
+
+{% block content %}
+    
+
+    <div class="wrapper">
+        <button class="btn btn-primary" onclick="printpage('printArea')">Print</button>
+        
+        <a href="{% url 'sales-list' %}" class="btn btn-warning">Go Back</a>
+    </div>
+
+    <br><br>
+
+    <form method="post">
+    {% csrf_token %}
+
+        <div class="bg">
+
+            <br><br>
+
+            <div id="printArea" class="bg">
+
+                <table class="" style="width: 800px; margin-left: auto; margin-right: auto;">
+                    <tbody>
+                        
+                            <tr>
+                                <td  style="border: none" class="inner-box">&nbsp; 
+                                    <span  style="font-weight: bold;"> Customer Name </span>: &nbsp;{{ bill.name }}
+                                </td>
+                    
+                            </tr>
+                            <tr>
+                                <td style="border: none" class="inner-box">&nbsp; 
+                                    <span  style="font-weight: bold;"> Invoice # </span>: &nbsp;{{ bill.billno }}
+                                </td>                
+                            </tr>
+                            <tr>
+                                <td style="border: none" class="inner-box">&nbsp; 
+                                    <span  style="font-weight: bold;"> Date </span>: &nbsp;{{ bill.time.date }}
+                                </td>                
+                            </tr>
+                            <tr>
+                                <td style="border: none" class="inner-box">&nbsp; 
+                                    <span  style="font-weight: bold;"> CNIC </span>: &nbsp;{{ bill.gstin }}
+                                </td>                
+                            </tr>
+                            <tr>
+                                <td style="border: none" class="inner-box">&nbsp; </td>       
+                            </tr>
+                             
+                        <tr>      
+                            <td>
+                            <table class="outer-box" style="width: auto; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 5%; font-weight: bold; text-align: center;">&nbsp;Sr #</td>
+                                        <td class="inner-box" style="width: 30%; font-weight: bold; text-align: center;">Description </td>
+                                        
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Qty </td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Price</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Total </td>
+                                    </tr>
+                                    {% for item in items %}
+                                        <tr style="height: auto;">
+                                            <td class="inner-box" style="width: 5%;">&nbsp; {{ forloop.counter }}</td>
+                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ item.stock.name }}</td>
+
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.quantity }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.perprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.totalprice }}
+                                            </td>                                        
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        
+                                        <td colspan="3" class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Total </td>
+                                        <td colspan="2" class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">{{total}} </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                    
+                    
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <br><br>
+
+        </div>
+
+        <br><br>
+
+    
+    </form>
+    
+    <script>
+        function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }       
+        </script>
+
+{% endblock %}
