@@ -8,7 +8,7 @@ class Supplier(models.Model):
     phone = models.CharField(max_length=12, unique=True)
     address = models.CharField(max_length=200)
     email = models.EmailField(max_length=254, unique=True)
-    cninc = models.CharField(max_length=13, unique=True)
+    gstin = models.CharField(max_length=13, unique=True)
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -53,6 +53,12 @@ class PurchaseBillDetails(models.Model):
     veh = models.CharField(max_length=50, blank=True, null=True)
     destination = models.CharField(max_length=50, blank=True, null=True)
     po = models.CharField(max_length=50, blank=True, null=True)
+    
+    cgst = models.CharField(max_length=50, blank=True, null=True)
+    sgst = models.CharField(max_length=50, blank=True, null=True)
+    igst = models.CharField(max_length=50, blank=True, null=True)
+    cess = models.CharField(max_length=50, blank=True, null=True)
+    tcs = models.CharField(max_length=50, blank=True, null=True)
     total = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
@@ -68,7 +74,7 @@ class SaleBill(models.Model):
     phone = models.CharField(max_length=12)
     address = models.CharField(max_length=200)
     email = models.EmailField(max_length=254)
-    cninc = models.CharField(max_length=13)
+    gstin = models.CharField(max_length=13)
 
     def __str__(self):
 	    return "Bill no: " + str(self.billno)
@@ -102,6 +108,12 @@ class SaleBillDetails(models.Model):
     veh = models.CharField(max_length=50, blank=True, null=True)
     destination = models.CharField(max_length=50, blank=True, null=True)
     po = models.CharField(max_length=50, blank=True, null=True)
+    
+    cgst = models.CharField(max_length=50, blank=True, null=True)
+    sgst = models.CharField(max_length=50, blank=True, null=True)
+    igst = models.CharField(max_length=50, blank=True, null=True)
+    cess = models.CharField(max_length=50, blank=True, null=True)
+    tcs = models.CharField(max_length=50, blank=True, null=True)
     total = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
